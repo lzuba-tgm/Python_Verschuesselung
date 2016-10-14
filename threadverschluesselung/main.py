@@ -235,14 +235,12 @@ while True :
 
         try:
             zahl = int(zahl)
+            unclear = []
+            createversch(zahl)
+            print "Verschuesselung neu generiert."
         except ValueError:
             print "Das war keine Zahl. Versuchen Sie es nochmal mit einer Zahl."
 
-        unclear = []
-
-        createversch(zahl)
-
-        print "Verschuesselung neu generiert."
     elif ein == 4:
         sys.exit(0)
     else:
