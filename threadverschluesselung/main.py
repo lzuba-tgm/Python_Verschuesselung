@@ -188,7 +188,7 @@ class entverstartup(object):
 
         print "Fertig Entschuesselt: " + self.unverschu
 
-#Definition der klaren Liste und Deklaration der Verschuesselungs-Liste
+#Definition der klaren Liste
 
 clear = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
         ,"!","$","%","&","/","(",")","=","?","}","]","[","{","^","@",":",",",";","_","-","<",">","|","#","'","+","*","~","-"
@@ -197,14 +197,14 @@ unclear = []
 
 # Erstellen einer Zufallszahl und Definition der Verschuesselungs-Liste anhand der Zufallszahl
 
-inde = 0
-randzahl = random.randint(1,50)
-for x in range(0,len(clear)):
-    inde += 1
-    if inde+randzahl == len(clear):
-        inde = randzahl * -1
+def createversch (randzahl):
+    inde = 0
+    for x in range(0,len(clear)):
+        inde += 1
+        if inde+randzahl == len(clear):
+            inde = randzahl * -1
 
-    unclear.append(clear[inde+randzahl])
+        unclear.append(clear[inde+randzahl])
 
 #   Debug Information
 #print randzahl
@@ -214,8 +214,10 @@ for x in range(0,len(clear)):
 
 # "Main Methode" Haupt-Loop
 
+createversch(random.randint(1,50))
+print len(unclear)
 while True :
-    ein = raw_input("Geben Sie ein was Sie machen wollen \n1 => Verschluesseln  2 => Entschluesseln  3 => Exit \n")
+    ein = raw_input("Geben Sie ein was Sie machen wollen \n1 => Verschluesseln  2 => Entschluesseln  3 => Setzen der Verschiebungszahl und Neuberechnung der Verschluesselung 4=> Exit \n")
 
     try:
         ein = int(ein)
@@ -229,6 +231,19 @@ while True :
         entverstart = entverstartup()
         entverstart.startunver()
     elif ein == 3:
+        zahl = raw_input("Geben Sie die Verschiebungszahl ein, die zwischen 0 und %d liegt \n" % int(len(unclear)-2))
+
+        try:
+            zahl = int(zahl)
+        except ValueError:
+            print "Das war keine Zahl. Versuchen Sie es nochmal mit einer Zahl."
+
+        unclear = []
+
+        createversch(zahl)
+
+        print "Verschuesselung neu generiert."
+    elif ein == 4:
         sys.exit(0)
     else:
         print "Unbekannter Befehl"
